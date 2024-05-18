@@ -22,11 +22,25 @@ struct ContentView: View {
     }
 }
 
+// Define the data model for a present
+struct Present: Identifiable {
+    var id = UUID()
+    var name: String
+}
+
 struct PresentsView: View {
+    let presents: [Present] = [
+            Present(name: "Regalo 1"),
+            Present(name: "Regalo 2"),
+            Present(name: "Regalo 3"),
+            Present(name: "Regalo 4"),
+            Present(name: "Regalo 5")
+        ]
+    
     var body: some View {
         NavigationView {
-            VStack {
-                Text("Lista regali")
+            List(presents) { present in
+                Text(present.name)
             }
             .padding()
             .navigationBarTitle("I tuoi regali")
