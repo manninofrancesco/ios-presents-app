@@ -88,3 +88,8 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+
+#Manually added
+.DS_Store
+github_ssh_key
+github_ssh_key.pub
