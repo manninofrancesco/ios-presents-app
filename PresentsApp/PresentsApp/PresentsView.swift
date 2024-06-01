@@ -11,13 +11,17 @@ struct PresentsView: View {
     @StateObject private var presentService = PresentService()
     
     var body: some View {
-        let userPresents = presentService.fakeGetUserPresents()
         NavigationView {
-            List(userPresents) { present in
+            List(presentService.presents) { present in
                 Text(present.title)
             }
             .padding()
             .navigationBarTitle("I tuoi regali")
+            .onAppear {
+                Task {
+                    try await presentService.getUserPresents()
+                }
+            }
         }
     }
 }
