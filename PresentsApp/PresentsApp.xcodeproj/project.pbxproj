@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13884BFA2C0B6BA100441E20 /* PresentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13884BF92C0B6BA100441E20 /* PresentsView.swift */; };
+		13884BFC2C0B6BD100441E20 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13884BFB2C0B6BD100441E20 /* ProfileView.swift */; };
+		13884BFE2C0B6BED00441E20 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13884BFD2C0B6BED00441E20 /* FriendsView.swift */; };
+		13AEE9262BF91F430040B1D6 /* PresentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AEE9252BF91F430040B1D6 /* PresentModel.swift */; };
+		13AEE9292BF91F890040B1D6 /* PresentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AEE9282BF91F890040B1D6 /* PresentService.swift */; };
+		13AEE92B2BF920FC0040B1D6 /* BaseHttpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AEE92A2BF920FC0040B1D6 /* BaseHttpResponse.swift */; };
 		13FFF1972BF8EE9B003F6CED /* PresentsAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FFF1962BF8EE9B003F6CED /* PresentsAppApp.swift */; };
 		13FFF1992BF8EE9B003F6CED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FFF1982BF8EE9B003F6CED /* ContentView.swift */; };
 		13FFF19B2BF8EE9C003F6CED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13FFF19A2BF8EE9C003F6CED /* Assets.xcassets */; };
@@ -34,6 +40,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		13884BF92C0B6BA100441E20 /* PresentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentsView.swift; sourceTree = "<group>"; };
+		13884BFB2C0B6BD100441E20 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		13884BFD2C0B6BED00441E20 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
+		13AEE9252BF91F430040B1D6 /* PresentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentModel.swift; sourceTree = "<group>"; };
+		13AEE9282BF91F890040B1D6 /* PresentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentService.swift; sourceTree = "<group>"; };
+		13AEE92A2BF920FC0040B1D6 /* BaseHttpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseHttpResponse.swift; sourceTree = "<group>"; };
 		13FFF1932BF8EE9B003F6CED /* PresentsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PresentsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13FFF1962BF8EE9B003F6CED /* PresentsAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentsAppApp.swift; sourceTree = "<group>"; };
 		13FFF1982BF8EE9B003F6CED /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -71,6 +83,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		13AEE9242BF91F2B0040B1D6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				13AEE9252BF91F430040B1D6 /* PresentModel.swift */,
+				13AEE92A2BF920FC0040B1D6 /* BaseHttpResponse.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		13AEE9272BF91F7A0040B1D6 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				13AEE9282BF91F890040B1D6 /* PresentService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		13FFF18A2BF8EE9B003F6CED = {
 			isa = PBXGroup;
 			children = (
@@ -94,8 +123,13 @@
 		13FFF1952BF8EE9B003F6CED /* PresentsApp */ = {
 			isa = PBXGroup;
 			children = (
+				13AEE9272BF91F7A0040B1D6 /* Services */,
+				13AEE9242BF91F2B0040B1D6 /* Models */,
 				13FFF1962BF8EE9B003F6CED /* PresentsAppApp.swift */,
 				13FFF1982BF8EE9B003F6CED /* ContentView.swift */,
+				13884BFD2C0B6BED00441E20 /* FriendsView.swift */,
+				13884BFB2C0B6BD100441E20 /* ProfileView.swift */,
+				13884BF92C0B6BA100441E20 /* PresentsView.swift */,
 				13FFF19A2BF8EE9C003F6CED /* Assets.xcassets */,
 				13FFF19C2BF8EE9C003F6CED /* Preview Content */,
 			);
@@ -258,6 +292,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				13FFF1992BF8EE9B003F6CED /* ContentView.swift in Sources */,
+				13AEE9292BF91F890040B1D6 /* PresentService.swift in Sources */,
+				13884BFE2C0B6BED00441E20 /* FriendsView.swift in Sources */,
+				13884BFA2C0B6BA100441E20 /* PresentsView.swift in Sources */,
+				13AEE92B2BF920FC0040B1D6 /* BaseHttpResponse.swift in Sources */,
+				13AEE9262BF91F430040B1D6 /* PresentModel.swift in Sources */,
+				13884BFC2C0B6BD100441E20 /* ProfileView.swift in Sources */,
 				13FFF1972BF8EE9B003F6CED /* PresentsAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
