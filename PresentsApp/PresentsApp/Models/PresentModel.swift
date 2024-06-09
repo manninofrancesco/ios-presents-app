@@ -12,4 +12,5 @@ struct PresentModel: Identifiable, Codable {
     var title: String = ""
     var description: String? = nil
     var link: String? = nil
+    var userId: UUID? = nil
 }
