@@ -13,17 +13,28 @@ struct PresentsView: View {
     
     var body: some View {
         NavigationStack{
-            List(presentService.presents) { present in
+            List (presentService.presents) { present in
                 Text(present.title)
+                    .swipeActions(edge: .trailing) {
+                        Button(role: .destructive) {
+                            Task {
+                                try await self.presentService.deletePresent(id: present.id)
+                            }
+                        } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
+                    }
+                
+            }.refreshable {
+                Task {
+                    try await self.presentService.getUserPresents()
+                }
             }
-            .padding()
-            .navigationTitle("I tuoi regali")
+            
+            .navigationTitle("🎁 I tuoi regali")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("➕") {
-                        /*Task {
-                            try await addPresent()
-                        }*/
                         isAddPresentViewPresented.toggle()
                     }.sheet(isPresented: $isAddPresentViewPresented) {
                         AddPresentView()
@@ -32,35 +43,15 @@ struct PresentsView: View {
             }
             .onAppear {
                 Task {
-                    try await presentService.getUserPresents()
+                    try await self.presentService.getUserPresents()
                 }
             }
         }
+        .contentMargins(20)
     }
     
-    struct AddPresentView: View {
-        @Environment (\.dismiss) var dismiss
-        var body: some View {
-            NavigationStack {
-                Text("Add Present Form")
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button("❌") {
-                                dismiss()
-                            }
-                        }
-                    }
-            }
-        }
-    }
-    
-    
-    
-    private func  addPresent() async throws {
-        let newPresent = PresentModel(
-            title: "New Present from IOS App",
-            userId: UUID(uuidString: "ca7d357e-c6c8-4b85-86b7-49eb492b3899"))
-        try await self.presentService .addPresent(model: newPresent)
+    private func deletePresent(id: UUID) async throws {
+        print("Deleting present")
     }
 }
 
