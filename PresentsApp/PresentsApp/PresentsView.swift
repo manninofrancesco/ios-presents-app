@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PresentsView: View {
     @StateObject private var presentService = PresentService()
+    @State private var isAddPresentViewPresented:Bool = false
     
     var body: some View {
         NavigationStack{
@@ -19,17 +20,15 @@ struct PresentsView: View {
             .navigationTitle("I tuoi regali")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                                    Button("➕") {
-                                        Task {
-                                            do {
-                                                try await addPresent()
-                                            } catch {
-                                                // Handle the error appropriately
-                                                print("Failed to add present: \(error.localizedDescription)")
-                                            }
-                                        }
-                                    }
-                                }
+                    Button("➕") {
+                        /*Task {
+                            try await addPresent()
+                        }*/
+                        isAddPresentViewPresented.toggle()
+                    }.sheet(isPresented: $isAddPresentViewPresented) {
+                        AddPresentView()
+                    }
+                }
             }
             .onAppear {
                 Task {
@@ -38,6 +37,24 @@ struct PresentsView: View {
             }
         }
     }
+    
+    struct AddPresentView: View {
+        @Environment (\.dismiss) var dismiss
+        var body: some View {
+            NavigationStack {
+                Text("Add Present Form")
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button("❌") {
+                                dismiss()
+                            }
+                        }
+                    }
+            }
+        }
+    }
+    
+    
     
     private func  addPresent() async throws {
         let newPresent = PresentModel(
