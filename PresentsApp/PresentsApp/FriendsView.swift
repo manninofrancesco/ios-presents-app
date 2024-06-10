@@ -8,13 +8,34 @@
 import SwiftUI
 
 struct FriendsView: View {
+    private let userService = UserService()
+    @State private var users: [UserModel] = []
+    
     var body: some View {
-        NavigationView {
-            VStack {
-                Text("Amici")
+        NavigationStack{
+            List (users) { user in
+                Text(user.username)
+                
+            }.refreshable {
+                Task {
+                    try await self.userService.getAllUsers()
+                }
             }
-            .padding()
-            .navigationBarTitle("Amici")
+            .navigationTitle("🫂 Amici")
+            .onAppear {
+                Task {
+                    try await loadUsers()
+                }
+            }
         }
+        .contentMargins(20)
     }
+    
+    private func loadUsers() async throws{
+        self.users = try await self.userService.getAllUsers()
+    }
+}
+
+#Preview {
+    FriendsView()
 }

@@ -49,10 +49,6 @@ struct PresentsView: View {
         }
         .contentMargins(20)
     }
-    
-    private func deletePresent(id: UUID) async throws {
-        print("Deleting present")
-    }
 }
 
 #Preview {
