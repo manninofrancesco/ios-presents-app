@@ -12,9 +12,9 @@ class PresentService: ObservableObject {
     @Published var presents: [PresentModel] = []
     private let baseUrl: String = "https://presents-app-production.up.railway.app"
     private let loggedUserId = "ca7d357e-c6c8-4b85-86b7-49eb492b3899"
+    private var httpService = HttpService()
     
-    func getUserPresents() async throws
-    {
+    func getUserPresents() async throws {
         guard let url = URL(string: "\(baseUrl)/user/\(loggedUserId)/presents") else {
             print("Invalid URL")
             return
@@ -31,52 +31,14 @@ class PresentService: ObservableObject {
     
     func addPresent(model: PresentModel) async throws
     {
-        guard let url = URL(string: "\(baseUrl)/present/create") else {
-            print("Invalid URL")
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        let jsonData = try JSONEncoder().encode(model)
-        request.httpMethod = "POST"
-        request.httpBody = jsonData
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let (data, response) = try await URLSession.shared.data(for: request)
-        
-        if let httpResponse = response as? HTTPURLResponse {
-            if httpResponse.statusCode == 200 {
-                print("Success: \(String(data: data, encoding: .utf8) ?? "No response body")")
-            } else {
-                print("Server error: \(httpResponse.statusCode), \(String(data: data, encoding: .utf8) ?? "No response body")")
-            }
-        } else {
-            print("Unknown response")
-        }
+        let url = "\(baseUrl)/present/create"
+        try await httpService.httpRequest(url: url, body: model, method: "POST")
     }
     
     func deletePresent(id: UUID) async throws
     {
-        print("Deleting present")
-        guard let url = URL(string: "\(baseUrl)/present/delete/\(id)") else {
-            print("Invalid URL")
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "DELETE"
-        
-        let (data, response) = try await URLSession.shared.data(for: request)
-        
-        if let httpResponse = response as? HTTPURLResponse {
-            if httpResponse.statusCode == 200 {
-                print("Success: \(String(data: data, encoding: .utf8) ?? "No response body")")
-            } else {
-                print("Server error: \(httpResponse.statusCode)")
-            }
-        } else {
-            print("Unknown response")
-        }
+        let url = "\(baseUrl)/present/delete/\(id)"
+        try await httpService.httpRequest(url: url, method: "DELETE")
     }
     
 }
