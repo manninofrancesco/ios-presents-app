@@ -26,7 +26,9 @@ struct AddPresentView: View {
                     Button(){
                         Task {
                             let currentUser = try await self.userService.getCurrentUser()
-                            let newPresent = PresentModel(title: title, description: description, userId: currentUser.id)
+                            let newPresent = PresentModel(
+                                id: UUID(),
+                                title: title, description: description, link: nil, userId: currentUser.id)
                             try await self.presentService.addPresent(model: newPresent)
                             try await self.presentService.getUserPresents()
                             dismiss()

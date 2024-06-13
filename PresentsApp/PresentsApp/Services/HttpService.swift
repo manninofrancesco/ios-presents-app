@@ -1,10 +1,3 @@
-//
-//  HttpService.swift
-//  PresentsApp
-//
-//  Created by Francesco on 11/06/24.
-//
-
 import Foundation
 
 class HttpService {
