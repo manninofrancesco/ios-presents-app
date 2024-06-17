@@ -42,8 +42,11 @@ struct AddPresentView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("❌") {
+                    Button() {
                         dismiss()
+                    } label: {
+                        Image(systemName: "x.circle.fill")
+                            .foregroundColor(.gray) 
                     }
                 }
             }

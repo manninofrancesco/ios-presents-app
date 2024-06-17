@@ -13,12 +13,12 @@ struct FriendsView: View {
     
     var body: some View {
         NavigationStack{
-            List (users) { user in
+            List (self.users) { user in
                 Text(user.username)
                 
             }.refreshable {
                 Task {
-                    try await self.userService.getAllUsers()
+                    try await loadUsers()
                 }
             }
             .navigationTitle("🫂 Amici")

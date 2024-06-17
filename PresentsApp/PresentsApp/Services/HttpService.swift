@@ -1,44 +1,34 @@
 import Foundation
 
 class HttpService {
-    func httpRequest(url: String, method: String) async throws {
-        guard let url = URL(string: url) else {
-            print("Invalid URL: \(url)")
-            return
-        }
-        
-        var request = URLRequest(url : url)
-        request.httpMethod = method
-        try await baseHttpRequest(request: request)
-    }
+    private let baseUrl: String = "https://presents-app-backend-1-0-0.onrender.com"
     
-    func httpRequest<T:Encodable>(url: String, body: T, method: String) async throws {
-        guard let url = URL(string: url) else {
+    func httpRequest<BodyType:Encodable, ResponseType:Decodable>(method: String, url: String, body: BodyType? = "", responseType: ResponseType.Type? = .none) async throws -> BaseHttpResponse<ResponseType> {
+        guard let url = URL(string: "\(baseUrl)\(url)") else {
             print("Invalid URL: \(url)")
-            return
+            throw GenericError.notValidUrl
         }
         
         var request = URLRequest(url : url)
         request.httpMethod = method
         
-        let jsonData = try JSONEncoder().encode(body)
-        request.httpBody = jsonData
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if(body != nil && false){
+            let jsonData = try JSONEncoder().encode(body)
+            request.httpBody = jsonData
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        }
         
-        try await baseHttpRequest(request: request)
-    }
-    
-    private func baseHttpRequest(request: URLRequest) async throws {
         let (data, response) = try await URLSession.shared.data(for: request)
         
+        let decodedResponse = try JSONDecoder().decode(BaseHttpResponse<ResponseType>.self, from: data)
+        
         if let httpResponse = response as? HTTPURLResponse {
-            if httpResponse.statusCode == 200 || httpResponse.statusCode == 201 {
-                print("Success: \(String(data: data, encoding: .utf8) ?? "No response body")")
-            } else {
+            if httpResponse.statusCode != 200 && httpResponse.statusCode != 201 {
                 print("Server error: \(httpResponse.statusCode), \(String(data: data, encoding: .utf8) ?? "No response body")")
+                throw ServerErrors.internalServerError
             }
-        } else {
-            print("Unknown response")
         }
+        
+        return decodedResponse
     }
 }
