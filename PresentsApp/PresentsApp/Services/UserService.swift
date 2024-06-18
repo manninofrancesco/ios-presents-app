@@ -11,7 +11,10 @@ class UserService: ObservableObject {
     }
     
     func getAllUsers() async throws -> [UserModel] {
-        let response = try await httpService.httpRequest(method: "GET", url: "/users", responseType: [UserModel].self)
+        let response = try await httpService.httpRequest(
+            method: "GET",
+            url: "/users",
+            responseType: [UserModel].self)
         
         return response.data
     }

@@ -3,7 +3,9 @@ import Foundation
 class HttpService {
     private let baseUrl: String = "https://presents-app-backend-1-0-0.onrender.com"
     
-    func httpRequest<BodyType:Encodable, ResponseType:Decodable>(method: String, url: String, body: BodyType? = "", responseType: ResponseType.Type? = .none) async throws -> BaseHttpResponse<ResponseType> {
+    func httpRequest<ResponseType:Decodable>
+    (method: String, url: String, responseType: ResponseType.Type, body: Data? = nil)
+    async throws -> BaseHttpResponse<ResponseType> {
         guard let url = URL(string: "\(baseUrl)\(url)") else {
             print("Invalid URL: \(url)")
             throw GenericError.notValidUrl
@@ -12,9 +14,8 @@ class HttpService {
         var request = URLRequest(url : url)
         request.httpMethod = method
         
-        if(body != nil && false){
-            let jsonData = try JSONEncoder().encode(body)
-            request.httpBody = jsonData
+        if(body != nil){
+            request.httpBody = body
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         }
         
@@ -27,6 +28,7 @@ class HttpService {
                 print("Server error: \(httpResponse.statusCode), \(String(data: data, encoding: .utf8) ?? "No response body")")
                 throw ServerErrors.internalServerError
             }
+            print("Successful server call at: \(url)")
         }
         
         return decodedResponse

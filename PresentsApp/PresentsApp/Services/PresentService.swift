@@ -19,11 +19,13 @@ class PresentService: ObservableObject {
     
     func addPresent(model: PresentModel) async throws
     {
+        let body = try JSONEncoder().encode(model)
+        
         let _: BaseHttpResponse<UUID> = try await httpService.httpRequest(
             method: "POST",
-            url: "/present/create", 
-            body: model,
-            responseType: UUID.self)
+            url: "/present/create",
+            responseType: UUID.self,
+            body: body)
     }
     
     func deletePresent(id: UUID) async throws

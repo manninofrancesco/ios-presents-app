@@ -26,11 +26,8 @@ struct AddPresentView: View {
                     Button(){
                         Task {
                             let currentUser = try await self.userService.getCurrentUser()
-                            let newPresent = PresentModel(
-                                id: UUID(),
-                                title: title, description: description, link: nil, userId: currentUser.id)
-                            try await self.presentService.addPresent(model: newPresent)
-                            try await self.presentService.getUserPresents()
+                            try await addNewPresent(userId: currentUser.id, title: self.title, description: self.description)
+                            print("Complete adding a present")
                             dismiss()
                         }
                     }
@@ -46,11 +43,22 @@ struct AddPresentView: View {
                         dismiss()
                     } label: {
                         Image(systemName: "x.circle.fill")
-                            .foregroundColor(.gray) 
+                            .foregroundColor(.gray)
                     }
                 }
             }
         }
+    }
+    
+    private func addNewPresent(userId: UUID, title: String, description: String) async throws {
+        if(title == ""){
+            throw PresentsErrors.missingTitle
+        }
+        let newPresent = PresentModel(
+            id: UUID(),
+            title: title, description: description, userId: userId)
+        try await self.presentService.addPresent(model: newPresent)
+        try await self.presentService.getUserPresents()
     }
 }
 
