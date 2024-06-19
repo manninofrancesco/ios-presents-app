@@ -14,7 +14,9 @@ struct FriendsView: View {
     var body: some View {
         NavigationStack{
             List (self.users) { user in
-                Text(user.username)
+                NavigationLink(destination: PresentsView(userId: user.id)) {
+                    Text(user.username)
+                }
                 
             }.refreshable {
                 Task {

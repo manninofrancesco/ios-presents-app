@@ -1,15 +1,13 @@
-//
-//  PresentsView.swift
-//  PresentsApp
-//
-//  Created by Francesco on 01/06/24.
-//
-
 import SwiftUI
 
 struct PresentsView: View {
+    let userId: UUID?
     @StateObject private var presentService = PresentService()
     @State private var isAddPresentViewPresented:Bool = false
+    
+    init(userId: UUID? = nil) {
+        self.userId = userId
+    }
     
     var body: some View {
         NavigationStack{
@@ -27,7 +25,7 @@ struct PresentsView: View {
                 
             }.refreshable {
                 Task {
-                    try await self.presentService.getUserPresents()
+                    try await self.presentService.getUserPresents(inputUserId: self.userId)
                 }
             }
             
@@ -46,7 +44,7 @@ struct PresentsView: View {
             }
             .onAppear {
                 Task {
-                    try await self.presentService.getUserPresents()
+                    try await self.presentService.getUserPresents(inputUserId: self.userId)
                 }
             }
         }

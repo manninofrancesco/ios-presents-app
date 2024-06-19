@@ -58,7 +58,6 @@ struct AddPresentView: View {
             id: UUID(),
             title: title, description: description, userId: userId)
         try await self.presentService.addPresent(model: newPresent)
-        try await self.presentService.getUserPresents()
     }
 }
 

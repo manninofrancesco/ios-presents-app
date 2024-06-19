@@ -3,14 +3,25 @@ import Combine
 
 class PresentService: ObservableObject {
     @Published var presents: [PresentModel] = []
-    private let loggedUserId = "ca7d357e-c6c8-4b85-86b7-49eb492b3899"
     private var httpService = HttpService()
+    private var userService = UserService()
     
-    func getUserPresents() async throws {
+    func getUserPresents(inputUserId: Optional<UUID>)
+    async throws {
+        var userId: UUID = UUID()
+        if(inputUserId != nil){
+            userId = inputUserId!
+        }else{
+            userId = try await userService.getCurrentUser().id
+        }
+        
+        print("Getting user presents for: \(String(describing: userId))")
+        
         let response = try await httpService.httpRequest(
             method: "GET",
-            url: "/user/\(loggedUserId)/presents",
+            url: "/user/\(userId)/presents",
             responseType: [PresentModel].self)
+        
         
         await MainActor.run {
             self.presents = response.data
