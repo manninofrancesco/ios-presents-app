@@ -2,12 +2,11 @@ import Foundation
 import Combine
 
 class PresentService: ObservableObject {
-    @Published var presents: [PresentModel] = []
     private var httpService = HttpService()
     private var userService = UserService()
     
     func getUserPresents(inputUserId: Optional<UUID>)
-    async throws {
+    async throws  -> [PresentModel] {
         var userId: UUID = UUID()
         if(inputUserId != nil){
             userId = inputUserId!
@@ -23,9 +22,7 @@ class PresentService: ObservableObject {
             responseType: [PresentModel].self)
         
         
-        await MainActor.run {
-            self.presents = response.data
-        }
+        return response.data
     }
     
     func addPresent(model: PresentModel) async throws
@@ -45,6 +42,16 @@ class PresentService: ObservableObject {
             method: "DELETE",
             url: "/present/delete/\(id)",
             responseType: UUID.self)
+    }
+    
+    func getPresent(id: UUID) async throws -> PresentModel
+    {
+        let response: BaseHttpResponse = try await httpService.httpRequest(
+            method: "GET",
+            url: "/present/getById/\(id)",
+            responseType: PresentModel.self)
+        
+        return response.data
     }
     
 }

@@ -14,9 +14,10 @@ struct ContentView: View {
                 .tabItem { Label("Regali", systemImage: "house") }
             
             FriendsView()
-                .tabItem { Label("Amici", systemImage: "magnifyingglass") }
-            
-            ProfileView()
+                .tabItem { Label("Amici", systemImage: "person.2.fill") }
+            SearchView()
+                .tabItem { Label("Cerca", systemImage: "magnifyingglass") }
+            MyProfileView()
                 .tabItem { Label("Tu", systemImage: "person") }
         }
     }

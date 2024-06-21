@@ -1,13 +1,6 @@
-//
-//  ProfileView.swift
-//  PresentsApp
-//
-//  Created by Francesco on 01/06/24.
-//
-
 import SwiftUI
 
-struct ProfileView: View {
+struct MyProfileView: View {
     var body: some View {
         NavigationView {
             VStack {

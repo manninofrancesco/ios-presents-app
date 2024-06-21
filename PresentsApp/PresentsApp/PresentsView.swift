@@ -4,19 +4,21 @@ struct PresentsView: View {
     let userId: UUID?
     @StateObject private var presentService = PresentService()
     @State private var isAddPresentViewPresented:Bool = false
+    @State private var presents: [PresentModel]
     
-    init(userId: UUID? = nil) {
+    init(userId: UUID? = nil, presents: [PresentModel]? = nil) {
         self.userId = userId
+        self.presents = presents ?? []
     }
     
     var body: some View {
         NavigationStack{
-            List (presentService.presents) { present in
+            List (presents) { present in
                 Text(present.title)
                     .swipeActions(edge: .trailing) {
                         Button(role: .destructive) {
                             Task {
-                                try await self.presentService.deletePresent(id: present.id)
+                                try await loadPresents()
                             }
                         } label: {
                             Label("Delete", systemImage: "trash")
@@ -25,7 +27,7 @@ struct PresentsView: View {
                 
             }.refreshable {
                 Task {
-                    try await self.presentService.getUserPresents(inputUserId: self.userId)
+                    try await loadPresents()
                 }
             }
             
@@ -44,11 +46,15 @@ struct PresentsView: View {
             }
             .onAppear {
                 Task {
-                    try await self.presentService.getUserPresents(inputUserId: self.userId)
+                    try await loadPresents()
                 }
             }
         }
         .contentMargins(20)
+    }
+    
+    private func loadPresents() async throws {
+        presents = try await presentService.getUserPresents(inputUserId: userId)
     }
 }
 
