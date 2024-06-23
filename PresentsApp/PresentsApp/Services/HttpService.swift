@@ -6,22 +6,23 @@ class HttpService {
     func httpRequest<ResponseType:Decodable>
     (method: String, url: String, responseType: ResponseType.Type, body: Data? = nil)
     async throws -> BaseHttpResponse<ResponseType> {
-        guard let url = URL(string: "\(baseUrl)\(url)") else {
+        guard let completeUrl = URL(string: "\(baseUrl)\(url)") else {
             print("Invalid URL: \(url)")
             throw GenericError.notValidUrl
         }
         
-        var request = URLRequest(url : url)
+        var request = URLRequest(url: completeUrl)
         request.httpMethod = method
         
         if(body != nil){
             request.httpBody = body
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         }
-        
+    
         let (data, response) = try await URLSession.shared.data(for: request)
         
         let decodedResponse = try JSONDecoder().decode(BaseHttpResponse<ResponseType>.self, from: data)
+        
         
         if let httpResponse = response as? HTTPURLResponse {
             if httpResponse.statusCode != 200 && httpResponse.statusCode != 201 {

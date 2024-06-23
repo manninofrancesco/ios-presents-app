@@ -13,12 +13,11 @@ struct PresentView: View {
         NavigationStack {
             VStack {
                 if(present != nil){
-                    Text(present!.title)
                     Text(present!.description ?? "")
                 }
             }
             .padding()
-            .navigationBarTitle("🎁")
+            .navigationBarTitle(present?.title ?? "")
             .onAppear{
                 Task {
                     try await loadPresent(presentId: presentId)

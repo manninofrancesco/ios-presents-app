@@ -14,7 +14,7 @@ struct PresentsView: View {
     var body: some View {
         NavigationStack{
             List (presents) { present in
-                Text(present.title)
+                NavigationLink(present.title, destination: EditPresentView(present: present))
                     .swipeActions(edge: .trailing) {
                         Button(role: .destructive) {
                             Task {
@@ -40,7 +40,7 @@ struct PresentsView: View {
                         Image(systemName: "plus.circle.fill")
                             .foregroundColor(.gray)
                     }.sheet(isPresented: $isAddPresentViewPresented) {
-                        AddPresentView()
+                        EditPresentView()
                     }
                 }
             }

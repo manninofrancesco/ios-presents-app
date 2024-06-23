@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		136B50162C171E9E0030CC69 /* AddPresentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136B50152C171E9E0030CC69 /* AddPresentView.swift */; };
+		136B50162C171E9E0030CC69 /* EditPresentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136B50152C171E9E0030CC69 /* EditPresentView.swift */; };
 		137130472C25FF1D00432D86 /* PresentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137130462C25FF1D00432D86 /* PresentView.swift */; };
 		137130492C2600FD00432D86 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137130482C2600FD00432D86 /* FriendsView.swift */; };
 		137EDB802C20C0A600ACA9D8 /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137EDB7F2C20C0A600ACA9D8 /* Generics.swift */; };
@@ -50,7 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		136B50152C171E9E0030CC69 /* AddPresentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPresentView.swift; sourceTree = "<group>"; };
+		136B50152C171E9E0030CC69 /* EditPresentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPresentView.swift; sourceTree = "<group>"; };
 		137130462C25FF1D00432D86 /* PresentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentView.swift; sourceTree = "<group>"; };
 		137130482C2600FD00432D86 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		137EDB7F2C20C0A600ACA9D8 /* Generics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generics.swift; sourceTree = "<group>"; };
@@ -167,7 +167,7 @@
 				13884BF92C0B6BA100441E20 /* PresentsView.swift */,
 				13FFF19A2BF8EE9C003F6CED /* Assets.xcassets */,
 				13FFF19C2BF8EE9C003F6CED /* Preview Content */,
-				136B50152C171E9E0030CC69 /* AddPresentView.swift */,
+				136B50152C171E9E0030CC69 /* EditPresentView.swift */,
 				137130462C25FF1D00432D86 /* PresentView.swift */,
 				137130482C2600FD00432D86 /* FriendsView.swift */,
 			);
@@ -342,7 +342,7 @@
 				13D98FCC2C1779F5008B75B7 /* UserService.swift in Sources */,
 				13CEFF9C2C248E7700EC7F51 /* UserProfileView.swift in Sources */,
 				137130492C2600FD00432D86 /* FriendsView.swift in Sources */,
-				136B50162C171E9E0030CC69 /* AddPresentView.swift in Sources */,
+				136B50162C171E9E0030CC69 /* EditPresentView.swift in Sources */,
 				13884BFC2C0B6BD100441E20 /* MyProfileView.swift in Sources */,
 				13FFF1972BF8EE9B003F6CED /* PresentsAppApp.swift in Sources */,
 				137130472C25FF1D00432D86 /* PresentView.swift in Sources */,

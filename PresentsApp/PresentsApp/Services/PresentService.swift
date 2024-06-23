@@ -36,6 +36,17 @@ class PresentService: ObservableObject {
             body: body)
     }
     
+    func updatePresent(model: PresentModel) async throws
+    {
+        let body = try JSONEncoder().encode(model)
+        
+        let _: BaseHttpResponse<UUID> = try await httpService.httpRequest(
+            method: "PUT",
+            url: "/present/update",
+            responseType: UUID.self,
+            body: body)
+    }
+    
     func deletePresent(id: UUID) async throws
     {
         let _: BaseHttpResponse = try await httpService.httpRequest(

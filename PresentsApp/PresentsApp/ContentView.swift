@@ -12,7 +12,6 @@ struct ContentView: View {
         TabView {
             PresentsView()
                 .tabItem { Label("Regali", systemImage: "house") }
-            
             FriendsView()
                 .tabItem { Label("Amici", systemImage: "person.2.fill") }
             SearchView()
