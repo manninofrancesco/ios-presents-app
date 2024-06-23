@@ -23,6 +23,7 @@
 		13D98FCC2C1779F5008B75B7 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D98FCB2C1779F5008B75B7 /* UserService.swift */; };
 		13D98FCE2C177A1D008B75B7 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D98FCD2C177A1D008B75B7 /* UserModel.swift */; };
 		13D98FD02C182AF9008B75B7 /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D98FCF2C182AF9008B75B7 /* HttpService.swift */; };
+		13FDF6422C2826AF00EF9FC4 /* ReservationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FDF6412C2826AF00EF9FC4 /* ReservationModel.swift */; };
 		13FFF1972BF8EE9B003F6CED /* PresentsAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FFF1962BF8EE9B003F6CED /* PresentsAppApp.swift */; };
 		13FFF1992BF8EE9B003F6CED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FFF1982BF8EE9B003F6CED /* ContentView.swift */; };
 		13FFF19B2BF8EE9C003F6CED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13FFF19A2BF8EE9C003F6CED /* Assets.xcassets */; };
@@ -66,6 +67,7 @@
 		13D98FCB2C1779F5008B75B7 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		13D98FCD2C177A1D008B75B7 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		13D98FCF2C182AF9008B75B7 /* HttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
+		13FDF6412C2826AF00EF9FC4 /* ReservationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationModel.swift; sourceTree = "<group>"; };
 		13FFF1932BF8EE9B003F6CED /* PresentsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PresentsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13FFF1962BF8EE9B003F6CED /* PresentsAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentsAppApp.swift; sourceTree = "<group>"; };
 		13FFF1982BF8EE9B003F6CED /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				13AEE9252BF91F430040B1D6 /* PresentModel.swift */,
 				13D98FCD2C177A1D008B75B7 /* UserModel.swift */,
 				13AEE92A2BF920FC0040B1D6 /* BaseHttpResponse.swift */,
+				13FDF6412C2826AF00EF9FC4 /* ReservationModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				13884BFE2C0B6BED00441E20 /* SearchView.swift in Sources */,
 				13884BFA2C0B6BA100441E20 /* PresentsView.swift in Sources */,
 				137EDB802C20C0A600ACA9D8 /* Generics.swift in Sources */,
+				13FDF6422C2826AF00EF9FC4 /* ReservationModel.swift in Sources */,
 				13919B0C2C21639B00ACD088 /* PresentsErrors.swift in Sources */,
 				13AEE92B2BF920FC0040B1D6 /* BaseHttpResponse.swift in Sources */,
 				13D98FD02C182AF9008B75B7 /* HttpService.swift in Sources */,

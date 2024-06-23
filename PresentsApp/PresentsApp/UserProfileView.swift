@@ -7,21 +7,22 @@ struct UserProfileView: View {
     @StateObject private var presentService = PresentService()
     @State private var user: UserModel?
     @State private var userPresents: [PresentModel]?
+    @State private var loading: Bool = true
 
     var body: some View {
         NavigationStack {
             VStack {
-                if user != nil {
-                    Text("Ecco qualche idea 😁")
-                } else {
-                    Text("Loading user profile...")
-                }
-                if(userPresents != nil){
-                    List (userPresents!) { present in
-                        NavigationLink(present.title, destination: PresentView(presentId: present.id))
-                    }.refreshable {
-                        Task {
-                            try await loadUserPresents(userId: userId)
+                if(!loading){
+                    if user != nil {
+                        Text("Ecco qualche idea 😁")
+                    }
+                    if(userPresents != nil){
+                        List (userPresents!) { present in
+                            NavigationLink(present.title, destination: PresentView(presentId: present.id))
+                        }.refreshable {
+                            Task {
+                                try await loadUserPresents(userId: userId)
+                            }
                         }
                     }
                 }
@@ -33,6 +34,7 @@ struct UserProfileView: View {
                 Task {
                     try await loadUser(userId: userId)
                     try await loadUserPresents(userId: userId)
+                    self.loading = false
                 }
             }
         }

@@ -65,4 +65,23 @@ class PresentService: ObservableObject {
         return response.data
     }
     
+    func bookPresent(presentID: UUID) async throws -> ReservationModel {
+        let response: BaseHttpResponse<ReservationModel> = try await httpService.httpRequest(
+            method: "PUT",
+            url: "/present/\(presentID)/book",
+            responseType: ReservationModel.self)
+        
+        return response.data
+    }
+    
+    func getPresentReservation(presentID: UUID) async throws -> ReservationModel? {
+        let response : BaseHttpResponse<ReservationModel?> = try await httpService.httpRequest(
+            method: "GET",
+            url: "/present/\(presentID)/reservation",
+            responseType: ReservationModel?.self
+        )
+        
+        return response.data
+    }
+    
 }

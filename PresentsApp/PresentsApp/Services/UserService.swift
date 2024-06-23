@@ -5,9 +5,9 @@ class UserService: ObservableObject {
     
     func getCurrentUser() async throws -> UserModel {
         return UserModel(
-            id: UUID(uuidString: "ca7d357e-c6c8-4b85-86b7-49eb492b3899")!,
-            username: "Fra",
-            email: "francesco.mannino1999@gmail.com")
+            id: UUID(uuidString: "66003dbd-efa4-48fc-8590-2f671c43bdc3")!,
+            username: "Bea",
+            email: "setteuno.b@gmail.com")
     }
     
     func getAllUsers() async throws -> [UserModel] {
