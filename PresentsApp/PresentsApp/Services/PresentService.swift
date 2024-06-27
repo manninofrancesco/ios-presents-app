@@ -84,4 +84,14 @@ class PresentService: ObservableObject {
         return response.data
     }
     
+    func undoReservation(presentID: UUID) async throws -> Bool {
+        let response : BaseHttpResponse<Bool> = try await httpService.httpRequest(
+            method: "DELETE",
+            url: "/present/\(presentID)/undoReservation",
+            responseType: Bool.self
+        )
+        
+        return response.data
+    }
+    
 }

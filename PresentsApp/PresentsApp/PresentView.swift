@@ -20,7 +20,7 @@ struct PresentView: View {
                     Text(present!.description ?? "")
                 }
                 
-                if(!loading && currentUser != nil && present?.userId != currentUser!.id){
+                if(!loading && currentUser != nil /*&& present?.userId != currentUser!.id*/){
                     if(reservation == nil){
                         Button() {
                             Task {
@@ -35,8 +35,23 @@ struct PresentView: View {
                             .controlSize(.regular)
                     }
                     else{
-                        if(reservation!.reserverUserId == currentUser?.id){
+                        if(true || reservation!.reserverUserId == currentUser?.id){
                             Text("Hai già prenotato questo regalo ✅")
+                            Button() {
+                                Task {
+                                    self.loading = true
+                                    let success = try await undoReservation(presentId: present!.id)
+                                    if(success){
+                                        reservation = nil
+                                    }
+                                    self.loading = false
+                                }
+                            }
+                        label: {
+                            Text("Annulla prenotazione")
+                        }.buttonStyle(.borderedProminent)
+                                .controlSize(.regular)
+                            
                         }else{
                             Text("Prenotato 🔐")
                         }
@@ -58,6 +73,10 @@ struct PresentView: View {
     
     private func loadPresent(presentId: UUID) async throws {
         present = try await presentService.getPresent(id: presentId)
+    }
+    
+    private func undoReservation(presentId: UUID) async throws -> Bool {
+        return try await presentService.undoReservation(presentID: presentId)
     }
     
     private func bookPresent(presentId: UUID) async throws -> ReservationModel {

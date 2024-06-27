@@ -30,7 +30,6 @@ struct PresentsView: View {
                     try await loadPresents()
                 }
             }
-            
             .navigationTitle("🎁 I tuoi regali")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
