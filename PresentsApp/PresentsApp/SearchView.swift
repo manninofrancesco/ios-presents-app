@@ -10,10 +10,11 @@ import SwiftUI
 struct SearchView: View {
     private let userService = UserService()
     @State private var users: [UserModel] = []
+    @State private var searchText = ""
     
     var body: some View {
         NavigationStack{
-            List (self.users) { user in
+            List (searchResults) { user in
                 NavigationLink(destination: UserProfileView(userId: user.id)) {
                     Text(user.username)
                 }
@@ -23,7 +24,7 @@ struct SearchView: View {
                     try await loadUsers()
                 }
             }
-            .navigationTitle("🫂 Amici")
+            .navigationTitle("🔍 Cerca")
             .onAppear {
                 Task {
                     try await loadUsers()
@@ -31,6 +32,15 @@ struct SearchView: View {
             }
         }
         .contentMargins(20)
+        .searchable(text: $searchText)
+    }
+    
+    var searchResults: [UserModel] {
+        if searchText.isEmpty {
+            return self.users
+        } else {
+            return users.filter { $0.username.range(of: searchText, options: .caseInsensitive) != nil  }
+        }
     }
     
     private func loadUsers() async throws{
