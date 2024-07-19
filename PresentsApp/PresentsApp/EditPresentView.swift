@@ -4,10 +4,7 @@ struct EditPresentView: View {
     @Environment (\.dismiss) var dismiss
     private var presentService = PresentService()
     private var userService = UserService()
-    
-    //private var presentId: UUID? = nil
     @State private var present: PresentModel? = nil
-    //@State private var alreadyExists: Bool = false
     @State private var title: String
     @State private var description: String
     
