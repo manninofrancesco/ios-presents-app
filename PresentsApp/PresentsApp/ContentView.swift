@@ -1,18 +1,10 @@
-//
-//  ContentView.swift
-//  Presents App
-//
-//  Created by Francesco on 17/05/24.
-//
-
 import SwiftUI
 
 struct ContentView: View {
-    private let userService = UserService()
-    let loggedIn: Bool = false
+    @StateObject var loginStatus = LoginStatus()
     
     var body: some View {
-        if(loggedIn){
+        if loginStatus.loggedUserId != nil {
             TabView {
                 PresentsView()
                     .tabItem { Label("Regali", systemImage: "house") }
@@ -21,13 +13,15 @@ struct ContentView: View {
                 SearchView()
                     .tabItem { Label("Cerca", systemImage: "magnifyingglass") }
                 MyProfileView()
+                    .environmentObject(loginStatus)
                     .tabItem { Label("Tu", systemImage: "person") }
             }
         }
         else{
-            LoginView()
+            LoginView().environmentObject(loginStatus)
         }
     }
+    
 }
 
 #Preview {

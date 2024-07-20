@@ -25,8 +25,10 @@ struct EditPresentView: View {
                     Button(){
                         Task {
                             let currentUser = try await self.userService.getCurrentUser()
-                            try await savePresent(userId: currentUser.id,  present: self.present)
-                            dismiss()
+                            if(currentUser != nil){
+                                try await savePresent(userId: currentUser!.id,  present: self.present)
+                                dismiss()
+                            }
                         }
                     }
                 label: {
@@ -56,18 +58,14 @@ struct EditPresentView: View {
     
     private func loadPresent() async throws {
         if(present != nil){
-            //present = try await presentService.getPresent(id: presentId!)
-            //alreadyExists = true
             self.title = present!.title
             self.description = present!.description ?? ""
-        }else{
-            present = PresentModel()
         }
-        
     }
     
-    private func savePresent(userId: UUID, present: PresentModel? = nil) async throws {
-        if(present?.title == ""){
+    private func savePresent(userId: UUID, present: PresentModel? = nil)
+    async throws {
+        if(self.title == ""){
             throw PresentsErrors.missingTitle
         }
         

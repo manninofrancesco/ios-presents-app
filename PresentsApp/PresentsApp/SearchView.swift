@@ -1,10 +1,3 @@
-//
-//  FriendsView.swift
-//  PresentsApp
-//
-//  Created by Francesco on 01/06/24.
-//
-
 import SwiftUI
 
 struct SearchView: View {

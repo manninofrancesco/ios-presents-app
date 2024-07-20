@@ -2,12 +2,16 @@ import Foundation
 
 class UserService: ObservableObject {
     private var httpService = HttpService()
+    private let defaults = UserDefaults.standard
     
-    func getCurrentUser() async throws -> UserModel {
-        return UserModel(
-            id: UUID(uuidString: "66003dbd-efa4-48fc-8590-2f671c43bdc3")!,
-            username: "Bea",
-            email: "setteuno.b@gmail.com")
+    func getCurrentUser() async throws -> UserModel? {
+        let storedCurrentUserId: String? = defaults.string(forKey: "loggedUserId")
+        if(storedCurrentUserId != nil){
+            let response: UserModel = try await self.getByProp(propName: "id", propValue: storedCurrentUserId!)
+            return response
+        }
+        
+        return nil
     }
     
     func getAllUsers() async throws -> [UserModel] {

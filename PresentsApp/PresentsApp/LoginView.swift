@@ -4,6 +4,8 @@ struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     private var authService = AuthService()
+    @Environment (\.dismiss) var dismiss
+    @EnvironmentObject var loginStatus: LoginStatus
     
     var body: some View {
         NavigationStack {
@@ -28,13 +30,13 @@ struct LoginView: View {
     }
     
     private func login(email: String, password: String) async throws {
-        print("Logging user \(email) with password \(password)")
         
         let loginData: LoginData = LoginData(email: email, password: password)
         
         let authData: AuthData = try await self.authService.login(loginData: loginData)
         
-        print("Access Token: \(authData.accessToken)")
-        print("Refresh Token: \(authData.refreshToken)")
+        loginStatus.loggedUserId = authData.userId.uuidString
+        loginStatus.accessToken = authData.accessToken
+        loginStatus.refreshToken = authData.refreshToken
     }
 }

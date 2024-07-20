@@ -13,10 +13,8 @@ struct UserProfileView: View {
         NavigationStack {
             VStack {
                 if(!loading){
-                    if user != nil {
-                        Text("Ecco qualche idea 😁")
-                    }
                     if(userPresents != nil){
+                        Text("Ecco qualche idea 😁")
                         List (userPresents!) { present in
                             NavigationLink(present.title, destination: PresentView(presentId: present.id))
                         }.refreshable {
@@ -24,9 +22,10 @@ struct UserProfileView: View {
                                 try await loadUserPresents(userId: userId)
                             }
                         }
+                    }else{
+                        Text("La sua whishlist è vuota 🥲")
                     }
                 }
-                
             }
             .padding()
             .navigationBarTitle(user?.username ?? "")

@@ -11,10 +11,13 @@ class PresentService: ObservableObject {
         if(inputUserId != nil){
             userId = inputUserId!
         }else{
-            userId = try await userService.getCurrentUser().id
+            let currentUser = try await userService.getCurrentUser()
+            if(currentUser != nil){
+                userId = currentUser!.id
+            }else{
+                throw GenericError.userNotFound
+            }
         }
-        
-        print("Getting user presents for: \(String(describing: userId))")
         
         let response = try await httpService.httpRequest(
             method: "GET",
@@ -66,10 +69,12 @@ class PresentService: ObservableObject {
     }
     
     func bookPresent(presentID: UUID) async throws -> ReservationModel {
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken")
         let response: BaseHttpResponse<ReservationModel> = try await httpService.httpRequest(
             method: "PUT",
             url: "/present/\(presentID)/book",
-            responseType: ReservationModel.self)
+            responseType: ReservationModel.self,
+            authToken: accessToken)
         
         return response.data
     }

@@ -12,8 +12,6 @@ class AuthService: ObservableObject {
             responseType: AuthData.self,
             body: body)
         
-        let responseJson = try JSONEncoder().encode(response.data)
-        print(responseJson)
         return response.data
     }
 }
