@@ -39,9 +39,13 @@ struct PresentsView: View {
             .navigationTitle("🎁 I tuoi regali")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: EditPresentView()) {
+                    Button() {
+                        isAddPresentViewPresented.toggle()
+                    } label: {
                         Image(systemName: "plus.circle.fill")
                             .foregroundColor(.gray)
+                    }.sheet(isPresented: $isAddPresentViewPresented) {
+                        EditPresentView()
                     }
                 }
             }
