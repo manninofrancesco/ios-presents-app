@@ -37,7 +37,7 @@ struct EditPresentView: View {
                         .controlSize(.regular)
                 }
             }
-            .navigationTitle("Modifica")
+            .navigationTitle("✏️ Dettagli del regalo")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button() {

@@ -8,10 +8,10 @@ struct ContentView: View {
             TabView {
                 PresentsView()
                     .tabItem { Label("Regali", systemImage: "house") }
-                FriendsView()
-                    .tabItem { Label("Amici", systemImage: "person.2.fill") }
                 SearchView()
                     .tabItem { Label("Cerca", systemImage: "magnifyingglass") }
+                EditPresentView()
+                    .tabItem { Label("Aggiungi", systemImage: "plus.circle.fill") }
                 MyProfileView()
                     .environmentObject(loginStatus)
                     .tabItem { Label("Tu", systemImage: "person") }

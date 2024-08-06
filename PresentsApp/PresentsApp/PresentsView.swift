@@ -13,33 +13,35 @@ struct PresentsView: View {
     
     var body: some View {
         NavigationStack{
-            List (presents) { present in
-                NavigationLink(present.title, destination: EditPresentView(present: present))
-                    .swipeActions(edge: .trailing) {
-                        Button(role: .destructive) {
-                            Task {
-                                try await loadPresents()
+            VStack {
+                if(presents.isEmpty){
+                    Text("La tua lista è vuota 🥲")
+                }else{
+                    List (presents) { present in
+                        NavigationLink(present.title, destination: EditPresentView(present: present))
+                            .swipeActions(edge: .trailing) {
+                                Button(role: .destructive) {
+                                    Task {
+                                        try await loadPresents()
+                                    }
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
                             }
-                        } label: {
-                            Label("Delete", systemImage: "trash")
+                        
+                    }.refreshable {
+                        Task {
+                            try await loadPresents()
                         }
                     }
-                
-            }.refreshable {
-                Task {
-                    try await loadPresents()
                 }
             }
             .navigationTitle("🎁 I tuoi regali")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button() {
-                        isAddPresentViewPresented.toggle()
-                    } label: {
+                    NavigationLink(destination: EditPresentView()) {
                         Image(systemName: "plus.circle.fill")
                             .foregroundColor(.gray)
-                    }.sheet(isPresented: $isAddPresentViewPresented) {
-                        EditPresentView()
                     }
                 }
             }

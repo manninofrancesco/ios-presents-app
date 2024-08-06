@@ -1,44 +1,54 @@
 import SwiftUI
 
-struct LoginView: View {
+struct SignInView: View {
     @State private var email: String = ""
     @State private var password: String = ""
+    @State private var username: String = ""
+    private var userService = UserService()
     private var authService = AuthService()
     @EnvironmentObject var loginStatus: LoginStatus
     
     var body: some View {
         NavigationStack {
-            NavigationLink(destination: SignInView()) {
-                Text("Registrati")
-            }
             Form{
                 Section{
                     TextField("Email", text: $email)
                     TextField("Password", text: $password)
+                    TextField("Username", text: $username)
                 }
             footer: {
                 Button(){
                     Task {
-                        try await login(email: email, password: password)
+                        try await signIn(email: email, password: password, username: username)
                     }
                 }
             label: {
-                Text("Login")
+                Text("Registrati")
             }.buttonStyle(.borderedProminent)
                     .controlSize(.regular)
             }
-            }.navigationTitle("🔒 Login")
+            }.navigationTitle("🔒 Registrazione")
         }
     }
     
-    private func login(email: String, password: String) async throws {
+    private func signIn(email: String, password: String, username: String) async throws {
+        
+        let newUserData: UserModel = UserModel(id: UUID(), username: username, email: email, password: password)
+        
+        let userId = try await userService.create(userData: newUserData)
         
         let loginData: LoginData = LoginData(email: email, password: password)
         
         let authData: AuthData = try await self.authService.login(loginData: loginData)
         
-        loginStatus.loggedUserId = authData.userId.uuidString
+        loginStatus.loggedUserId = userId.uuidString
         loginStatus.accessToken = authData.accessToken
         loginStatus.refreshToken = authData.refreshToken
+        
     }
 }
+
+#Preview {
+    ContentView()
+}
+

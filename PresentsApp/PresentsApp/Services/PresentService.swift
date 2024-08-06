@@ -90,10 +90,12 @@ class PresentService: ObservableObject {
     }
     
     func undoReservation(presentID: UUID) async throws -> Bool {
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken")
         let response : BaseHttpResponse<Bool> = try await httpService.httpRequest(
             method: "DELETE",
             url: "/present/\(presentID)/undoReservation",
-            responseType: Bool.self
+            responseType: Bool.self,
+            authToken: accessToken
         )
         
         return response.data

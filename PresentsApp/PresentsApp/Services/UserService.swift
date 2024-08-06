@@ -31,4 +31,17 @@ class UserService: ObservableObject {
         
         return response.data
     }
+    
+    func create(userData: UserModel) async throws -> UUID {
+        
+        let body = try JSONEncoder().encode(userData)
+        
+        let response = try await httpService.httpRequest(
+            method: "POST",
+            url: "/user/create",
+            responseType: UUID.self,
+            body: body)
+        
+        return response.data
+    }
 }
