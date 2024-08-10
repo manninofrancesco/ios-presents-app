@@ -20,8 +20,8 @@ struct PresentView: View {
                     Text(present!.description ?? "")
                 }
                 
-                if(!loading && currentUser != nil /*&& present?.userId != currentUser!.id*/){
-                    if(reservation == nil){
+                if(!loading && currentUser != nil){
+                    if(reservation == nil && present?.userId != currentUser?.id){
                         Button() {
                             Task {
                                 self.loading = true
@@ -34,43 +34,41 @@ struct PresentView: View {
                     }.buttonStyle(.borderedProminent)
                             .controlSize(.regular)
                     }
-                    else{
-                        if(true || reservation!.reserverUserId == currentUser?.id){
-                            Text("Hai già prenotato questo regalo ✅")
-                            Button() {
-                                Task {
-                                    self.loading = true
-                                    let success = try await undoReservation(presentId: present!.id)
-                                    if(success){
-                                        reservation = nil
-                                    }
-                                    self.loading = false
+                    else if(reservation != nil && reservation!.reserverUserId == currentUser?.id){
+                        Text("Hai già prenotato questo regalo ✅")
+                        Button() {
+                            Task {
+                                self.loading = true
+                                let success = try await undoReservation(presentId: present!.id)
+                                if(success){
+                                    reservation = nil
                                 }
+                                self.loading = false
                             }
-                        label: {
-                            Text("Annulla prenotazione")
-                        }.buttonStyle(.borderedProminent)
-                                .controlSize(.regular)
-                            
-                        }else{
-                            Text("Prenotato 🔐")
                         }
+                    label: {
+                        Text("Annulla prenotazione")
+                    }.buttonStyle(.borderedProminent)
+                            .controlSize(.regular)
+                        
+                    }
+                    else if(reservation != nil){
+                        Text("Prenotato 🔐")
                     }
                 }
             }
-            .padding()
-            .navigationBarTitle(present?.title ?? "")
-            .onAppear{
-                Task {
-                    try await loadPresent(presentId: presentId)
-                    currentUser = try await self.userService.getCurrentUser()
-                    reservation = try await self.presentService.getPresentReservation(presentID: presentId)
-                    self.loading = false
-                }
+        }
+        .padding()
+        .navigationBarTitle(present?.title ?? "")
+        .onAppear{
+            Task {
+                try await loadPresent(presentId: presentId)
+                currentUser = try await self.userService.getCurrentUser()
+                reservation = try await self.presentService.getPresentReservation(presentID: presentId)
+                self.loading = false
             }
         }
     }
-    
     private func loadPresent(presentId: UUID) async throws {
         present = try await presentService.getPresent(id: presentId)
     }

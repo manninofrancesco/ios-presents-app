@@ -44,4 +44,12 @@ class UserService: ObservableObject {
         
         return response.data
     }
+    
+    func delete(userId: UUID) async throws {
+        
+        let _ = try await httpService.httpRequest(
+            method: "DELETE",
+            url: "/user/delete/\(userId)",
+            responseType: UUID.self)
+    }
 }

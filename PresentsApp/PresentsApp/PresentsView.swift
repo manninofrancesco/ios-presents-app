@@ -22,7 +22,7 @@ struct PresentsView: View {
                             .swipeActions(edge: .trailing) {
                                 Button(role: .destructive) {
                                     Task {
-                                        try await loadPresents()
+                                        try await deletePresent(id: present.id )
                                     }
                                 } label: {
                                     Label("Delete", systemImage: "trash")
@@ -54,12 +54,24 @@ struct PresentsView: View {
                     try await loadPresents()
                 }
             }
+            .onChange(of: isAddPresentViewPresented) {
+                if !isAddPresentViewPresented {
+                    Task {
+                        try await loadPresents()
+                    }
+                }
+            }
+            
         }
         .contentMargins(20)
     }
     
     private func loadPresents() async throws {
         presents = try await presentService.getUserPresents(inputUserId: userId)
+    }
+    
+    private func deletePresent(id: UUID) async throws {
+        try await presentService.deletePresent(id: id)
     }
 }
 

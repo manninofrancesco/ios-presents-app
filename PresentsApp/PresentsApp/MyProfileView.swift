@@ -16,6 +16,14 @@ struct MyProfileView: View {
                 }
                 Button(){
                     Task {
+                        try await self.deleteCurrentUser()
+                    }
+                }
+                label: {
+                    Text("❌ Elimina account")
+                }
+                Button(){
+                    Task {
                         try await self.logout()
                     }
                 }
@@ -35,5 +43,10 @@ struct MyProfileView: View {
     }
     private func logout() async throws {
         loginStatus.loggedUserId = nil
+    }
+    
+    private func deleteCurrentUser() async throws {
+        try await userService.delete(userId: UUID(uuidString: loginStatus.loggedUserId!)!)
+        try await self.logout()
     }
 }
